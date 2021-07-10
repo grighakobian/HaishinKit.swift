@@ -80,8 +80,8 @@ public final class H264Encoder {
     }
     public private(set) var isRunning: Atomic<Bool> = .init(false)
 
-    var muted = false
-    var scalingMode: ScalingMode = H264Encoder.defaultScalingMode {
+    public var muted = false
+    public var scalingMode: ScalingMode = H264Encoder.defaultScalingMode {
         didSet {
             guard scalingMode != oldValue else {
                 return
@@ -90,7 +90,7 @@ public final class H264Encoder {
         }
     }
 
-    var width: Int32 = H264Encoder.defaultWidth {
+    public var width: Int32 = H264Encoder.defaultWidth {
         didSet {
             guard width != oldValue else {
                 return
@@ -98,7 +98,7 @@ public final class H264Encoder {
             invalidateSession = true
         }
     }
-    var height: Int32 = H264Encoder.defaultHeight {
+    public var height: Int32 = H264Encoder.defaultHeight {
         didSet {
             guard height != oldValue else {
                 return
@@ -107,7 +107,7 @@ public final class H264Encoder {
         }
     }
     #if os(macOS)
-    var enabledHardwareEncoder = true {
+    public var enabledHardwareEncoder = true {
         didSet {
             guard enabledHardwareEncoder != oldValue else {
                 return
@@ -116,7 +116,7 @@ public final class H264Encoder {
         }
     }
     #endif
-    var bitrate: UInt32 = H264Encoder.defaultBitrate {
+    public var bitrate: UInt32 = H264Encoder.defaultBitrate {
         didSet {
             guard bitrate != oldValue else {
                 return
@@ -124,7 +124,7 @@ public final class H264Encoder {
             setProperty(kVTCompressionPropertyKey_AverageBitRate, Int(bitrate) as CFTypeRef)
         }
     }
-    var profileLevel: String = kVTProfileLevel_H264_Baseline_3_1 as String {
+    public var profileLevel: String = kVTProfileLevel_H264_Baseline_3_1 as String {
         didSet {
             guard profileLevel != oldValue else {
                 return
@@ -132,7 +132,7 @@ public final class H264Encoder {
             invalidateSession = true
         }
     }
-    var maxKeyFrameIntervalDuration: Double = 2.0 {
+    public var maxKeyFrameIntervalDuration: Double = 2.0 {
         didSet {
             guard maxKeyFrameIntervalDuration != oldValue else {
                 return
@@ -142,7 +142,7 @@ public final class H264Encoder {
     }
     var locked: UInt32 = 0
     var lockQueue = DispatchQueue(label: "com.haishinkit.HaishinKit.H264Encoder.lock")
-    var expectedFPS: Float64 = AVMixer.defaultFPS {
+    public var expectedFPS: Float64 = AVMixer.defaultFPS {
         didSet {
             guard expectedFPS != oldValue else {
                 return
@@ -150,7 +150,7 @@ public final class H264Encoder {
             setProperty(kVTCompressionPropertyKey_ExpectedFrameRate, NSNumber(value: expectedFPS))
         }
     }
-    var formatDescription: CMFormatDescription? {
+    public var formatDescription: CMFormatDescription? {
         didSet {
             guard !CMFormatDescriptionEqual(formatDescription, otherFormatDescription: oldValue) else {
                 return
@@ -158,7 +158,7 @@ public final class H264Encoder {
             delegate?.didSetFormatDescription(video: formatDescription)
         }
     }
-    weak var delegate: VideoEncoderDelegate?
+    public weak var delegate: VideoEncoderDelegate?
 
     private(set) var status: OSStatus = noErr
     private var attributes: [NSString: AnyObject] {
